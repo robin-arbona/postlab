@@ -11,6 +11,10 @@ var host = "127.0.0.1";
 
 //Secret key
 
+app.get("/",(req,res)=>{
+  res.status(200).send('hey')
+})
+
 // Configure express json
 app.use(bodyParser.json());
 
