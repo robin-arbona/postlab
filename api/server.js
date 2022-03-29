@@ -22,7 +22,7 @@ app.post("/webhook", function(req, res) {
 
   console.log(Object.keys(req.body))
 
-  const resp = fetch('https://hooks.slack.com/services/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',{
+  const resp = fetch('https://hooks.slack.com/services/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',{
     method: 'POST',
     body: JSON.stringify({text: command}),
 	  headers: {'Content-Type': 'application/json'}
