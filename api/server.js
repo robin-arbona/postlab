@@ -1,32 +1,32 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var xhub = require("express-x-hub");
+import express from 'express';
+import bodyParser from "body-parser"
+import fetch from 'node-fetch';
 
-//Const
-var xhubSecret = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCloFeBpIjocE16I9hycAcUas3IrjsZwnXN1OQW7YNmCf+AjuwQPbBiRaBRAhfGPXitRhnsxxDjZ1XAGg6NJCQP92ZJlJ/axN9CwYmc0F5F8n2vYoqXMNnDnPQfKuKANCHFHCnjlo0ajfIyiZcyBDukWXY5lSd8GzJj7Q6ZucQyTz24okz1Tub8Imr4eC5VOAhAK5GoxtfI6+MqexYVNu9rfavBKDBRne7z4IVOsktMlNQntQ1y+LUPFHiko42JS681gZ4iile0a5anV9i+xk8WXyfoliEALxR4hEG36Qgith70xSTG0ykbD3+0F1ogNjkf6NKOkUrawc0l5QRzvX55hNCwIRmxw2Gg1v6ilppl9cinKnkoEbfTM4WP+UKh5fjHesd2ff/btAc/WQbMFMLykz8TS4a7+TCKx0uccUxE6DjltgBIEgDw5rlKWxnN55pbK+iRlUvRHnD/mjSwBqYf/XDu1fcJ2Mmr/itU/pViJdCfQu2qjYJVrMcP+sAHT88= robinarbona@MacBook-Pro-de-Robin.local";
+const app = express();
+
+
 var port = "8085";
 var host = "127.0.0.1";
 
 //Secret key
-app.use(xhub({ algorithm: "sha1", secret: xhubSecret }));
 
 // Configure express json
 app.use(bodyParser.json());
 
 // Add default route
 app.post("/webhook", function(req, res) {
-  if (!req.isXHubValid()) {
-    res.status(400).send("Invalid X-Hub Request");
-    console.log("Secret key is invalid");
-    return;
-  }
 
   var command = req.headers["x-github-event"];
 
   console.log(req.body)
 
   console.log(Object.keys(req.body))
+
+  const resp = fetch('https://hooks.slack.com/services/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',{
+    method: 'POST',
+    body: JSON.stringify({text: command}),
+	  headers: {'Content-Type': 'application/json'}
+  })
 
 
   switch (command) {
@@ -42,17 +42,31 @@ app.post("/webhook", function(req, res) {
 
     //Event push (Push in a repository)
     case "push":
+      // in req.body :
+      // [
+      //   'ref',         'before',
+      //   'after',       'repository',
+      //   'pusher',      'sender',
+      //   'created',     'deleted',
+      //   'forced',      'base_ref',
+      //   'compare',     'commits',
+      //   'head_commit'
+      // ]
       console.log("push Event");
       break;
 
     //Event Push (Repository published in a repository)
     case "repository":
+      // in req.body
+      // [ 'action', 'changes', 'repository', 'sender' ]
       console.log("Repository Event");
       break;
 
     default:
       console.log("Event not supported : " + req.headers["X-Github-Event"]);
     }
+
+    res.status(200).send()
 });
 
 // Main : Start the express http server
