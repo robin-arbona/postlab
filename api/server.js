@@ -5,9 +5,8 @@ import 'dotenv/config';
 
 const app = express();
 
-
-var port = "8085";
-var host = "127.0.0.1";
+const port = "8085";
+const host = "127.0.0.1";
 
 //Secret key
 
@@ -22,7 +21,7 @@ console.log(process.env.WEBHOOK_ENDPOINT)
 // Add default route
 app.post("/webhook", function(req, res) {
 
-  var command = req.headers["x-github-event"];
+  const command = req.headers["x-github-event"];
 
   console.log(req.body)
 
@@ -76,7 +75,7 @@ app.post("/webhook", function(req, res) {
 });
 
 // Main : Start the express http server
-var server = app.listen(port, host, function() {
+const server = app.listen(port, host, function() {
     console.log(
       "App listening at http://%s:%s",
       server.address().address,
