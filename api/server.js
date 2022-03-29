@@ -25,14 +25,8 @@ app.post("/webhook", function(req, res) {
 
   console.log(req.body)
 
-  console.log(Object.keys(req.body))
-
-  const resp = fetch(process.env.WEBHOOK_ENDPOINT,{
-    method: 'POST',
-    body: JSON.stringify({text: command}),
-	  headers: {'Content-Type': 'application/json'}
-  })
-
+  
+  let text = '';
 
   switch (command) {
     //Event create (Branch, or tag created)
@@ -47,29 +41,28 @@ app.post("/webhook", function(req, res) {
 
     //Event push (Push in a repository)
     case "push":
-      // in req.body :
-      // [
-      //   'ref',         'before',
-      //   'after',       'repository',
-      //   'pusher',      'sender',
-      //   'created',     'deleted',
-      //   'forced',      'base_ref',
-      //   'compare',     'commits',
-      //   'head_commit'
-      // ]
       console.log("push Event");
+      text = `on repo ${req.body.repository.name}, new push from ${req.body.pusher.name}. Head commit message was ${req.body.head_commit.message}`;
       break;
 
     //Event Push (Repository published in a repository)
     case "repository":
       // in req.body
       // [ 'action', 'changes', 'repository', 'sender' ]
+      text = `on repo ${req.body.repository.name}, following changes have been made ${JSON.stringify(req.body.changes)}`;
       console.log("Repository Event");
       break;
 
     default:
       console.log("Event not supported : " + req.headers["X-Github-Event"]);
     }
+
+    await fetch(process.env.WEBHOOK_ENDPOINT,{
+      method: 'POST',
+      body: JSON.stringify({text}),
+      headers: {'Content-Type': 'application/json'}
+    })
+  
 
     res.status(200).send()
 });
