@@ -6,6 +6,8 @@
   "dependencies": {
     "express": "^4.17.3",
     "express-x-hub": "^1.0.4",
-    "npm": "^8.5.5"
+    "npm": "^8.5.5",
+    "dotenv": "^16.0.0",
+    "octokit": "^1.7.1"
   }
 }
