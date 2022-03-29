@@ -1,6 +1,7 @@
 import express from 'express';
-import bodyParser from "body-parser"
+import bodyParser from "body-parser";
 import fetch from 'node-fetch';
+import 'dotenv/config';
 
 const app = express();
 
@@ -13,6 +14,7 @@ var host = "127.0.0.1";
 // Configure express json
 app.use(bodyParser.json());
 
+console.log(process.env.WEBHOOK_ENDPOINT)
 // Add default route
 app.post("/webhook", function(req, res) {
 
@@ -22,7 +24,7 @@ app.post("/webhook", function(req, res) {
 
   console.log(Object.keys(req.body))
 
-  const resp = fetch('https://hooks.slack.com/services/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',{
+  const resp = fetch(process.env.WEBHOOK_ENDPOINT,{
     method: 'POST',
     body: JSON.stringify({text: command}),
 	  headers: {'Content-Type': 'application/json'}
