@@ -23,35 +23,34 @@ app.post("/webhook", function(req, res) {
   }
 
   var command = req.headers["x-github-event"];
-  console.log(res)
+
+  console.log(req.body)
+
+  console.log(Object.keys(req.body))
+
 
   switch (command) {
     //Event create (Branch, or tag created)
     case "create":
-      res.send("Event create trigger");
       console.log("Create event");
       break;
 
     //Event release (Release published in a repository)
     case "release":
-      res.send("Event release trigger");
       console.log("Release Event");
       break;
 
     //Event push (Push in a repository)
     case "push":
-      res.send(res.body);
       console.log("push Event");
       break;
 
     //Event Push (Repository published in a repository)
     case "repository":
-      res.send("Event repository trigger");
       console.log("Repository Event");
       break;
 
     default:
-      res.status(400).send("Event not supported : " + command);
       console.log("Event not supported : " + req.headers["X-Github-Event"]);
     }
 });
