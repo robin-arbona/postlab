@@ -1,0 +1,11 @@
+{
+  "name": "api-postlab",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.3",
+    "express-x-hub": "^1.0.4",
+    "npm": "^8.5.5"
+  }
+}
