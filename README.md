@@ -5,6 +5,22 @@
 
 ---
 
+# Description des fichiers
+
+
+| folder              |   file   |                                                       description |
+| ------------------- | :------: | ----------------------------------------------------------------: |
+| /                   | index.js |                                  launch github scrapper on a repo |
+| /                   | Repo.js  |                          scrapper (get repo info and all commits) |
+| /repo               |    *     |                    repository info and commits are stored as json |
+| /documenation       |    *     |                                       documentation about project |
+| /web                |    *     |                                        visualisation of json file |
+| /webhook/functions/ | index.js | format incomming webhook from github and send it to slack webhook |
+
+
+
+
+---
 # solution retenue
 
 ## 1 - réalisation vieille
@@ -15,7 +31,7 @@
 - info repo & commit stoqués en json
 ## 3 -  visualisation
 
-
+```mermaid
 flowchart TB
     D-->A1
 
