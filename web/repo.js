@@ -32,7 +32,7 @@
         dataSet.push({
             id,
             content: commit.author.name,
-            start: commit.author.date.slice(0,10),
+            start: commit.author.date,
             sha
         })
     }

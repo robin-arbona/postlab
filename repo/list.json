@@ -1,5 +1,1 @@
-[
-  { "repo": "IAMDinosaur", "owner": "ivanseidel" },
-  { "repo": "knowledge-base", "owner": "etalab-ia" },
-  { "repo": "postlab", "owner": "robin-arbona" }
-]
+[{"repo":"IAMDinosaur","owner":"ivanseidel"},{"repo":"knowledge-base","owner":"etalab-ia"},{"repo":"postlab","owner":"robin-arbona"}]
