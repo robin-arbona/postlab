@@ -1,48 +1,3 @@
----
-marp: true
-paginate: true
-style: |
-  section {  
-    background-color: black;
-    color: white;
-  }
-  h1 {
-      color: white;
-      font-size: 50px;
-      margin-bottom: 0;
-      text-decoration: underline;
-      text-decoration-color: orange;
-  }
-
-  h2 {
-      margin-top: 0;
-      color: white;
-      margin-bottom: 0;
-  }
-
-  p {
-      color: white;
-  }
-
-  ul, li {
-    margin : 0;
-  }
-
-  a {
-    padding: 10px;
-    color: white;
-    text-decoration: none;
-    border: 1px solid orange;
-    margin: 50px;
-    margin-left: 0;
-    width: 200px;
-  }
-
-  a:hover{
-      background-color: orange;
-      transition: background-color 1000ms linear;
-  }
----
 
 # Outil de veille et d’extraction d’information à partir de dépôts de code tels que Github, GitLab ou Bitbucket.
 
@@ -60,14 +15,52 @@ style: |
 - info repo & commit stoqués en json
 ## 3 -  visualisation
 
-![width:500px bg right](./schema.png)
 
----
+flowchart TB
+    D-->A1
 
-# proof of concept
+    subgraph webhook
+    A["github event (push/update repo)"]
+    A -- POST request webhook -->B
+    B(["API postLab"])
+    B-->C["webhook Slack"]
+    B-->D["Update repo database"];
+    C-->F["message sur channel"]
+    click F "www.google.fr" "kkjg"
+    end
 
-[Repo github](https://github.com/robin-arbona/postlab)
+    subgraph github scrapper
+    A1(["Connect to github API"])
+    A1-->B1
+    B1["Get repo info"]
+    B1-->C1
+    C1["Get last commit and parent ref"]
+    D1["Get parent"]
+    C1-->D1
+    D1-->C1
+    D1-->E1
+    E1[("Save as JSON")]
+    end
 
-[slack](slack://open)
+    subgraph view
+    A2["display repo list"]
+    B2["repo 1"]
+    C2["repo ..."]
+    D2["repo N"]
 
-[Demo web](http://127.0.0.1:5500/web/index.html)
+    A2-->B2
+    A2-->C2
+    A2-->D2
+
+    E2["Display repo info (title/description/language/team...)"]
+    F2["Display timeline from changes (commit)"]
+
+    D2-->E2
+    D2-->F2
+
+    E1-->A2
+
+
+    end
+    
+```
