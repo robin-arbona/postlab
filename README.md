@@ -30,7 +30,7 @@
 ## 1 - réalisation vieille
 - webhook (dépots adhérent postlab)
 - cron (autre dépot)
-## 2 - extraction des données
+## 2 - extraction des données 
 - api github
 - info repo & commit stoqués en json
 ## 3 -  visualisation
