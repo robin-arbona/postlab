@@ -54,7 +54,7 @@ style: |
 
 ## 1 - réalisation vieille
 - webhook (dépots adhérent postlab)
-- cron (autre dépot)
+- cron (autre dépot) (non réalisé)
 ## 2 - extraction des données
 - api github
 - info repo & commit stoqués en json
@@ -71,3 +71,23 @@ style: |
 [slack](slack://open)
 
 [Demo web](http://127.0.0.1:5500/web/index.html)
+
+
+---
+
+# Annexe webhook (1/2)
+
+1 - Settings > webhooks > create
+
+Add url (payload and request can be visualised in recent deliveries)
+
+![width:500px bg right](./github_webhook.png)
+
+---
+
+# Annexe webhook slack (2/2)
+
+
+[Doc slack webhooks](https://api.slack.com/messaging/webhooks#posting_with_webhooks)
+
+![width:500px bg right](./slack_webhook.png)
