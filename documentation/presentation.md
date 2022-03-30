@@ -58,17 +58,13 @@ style: |
 <br />
 ## 2 - extraction des données
 - api github
+- info repo & commit stoqués en json
+
+![width:500px bg right](./schema.png)
 
 ---
 
 # proof of concept
-
-1 - récuperer informations repo / commits 
-2 - webkhook pour notifier
-
----
-
-# demo
 
 [Repo github](https://github.com/robin-arbona/postlab)
 
