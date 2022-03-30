@@ -55,10 +55,10 @@ style: |
 ## 1 - réalisation vieille
 - webhook (dépots adhérent postlab)
 - cron (autre dépot)
-<br />
 ## 2 - extraction des données
 - api github
 - info repo & commit stoqués en json
+## 3 -  visualisation
 
 ![width:500px bg right](./schema.png)
 
