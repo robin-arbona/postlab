@@ -53,7 +53,8 @@
 
     document.getElementById('visualization').onclick = function (event) {
         const props = timeline.getEventProperties(event)
-        console.log(commits[dataSet[props.item].sha]);
+        console.log(props.item)
+        console.log(commits[dataSet[props.item-1].sha]);
       }
 })()
 
