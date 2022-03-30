@@ -22,6 +22,8 @@ html {
 h1 {
     font-size: 50px;
     margin-bottom: 0;
+    text-decoration: underline;
+    text-decoration-color: orange;
 }
 
 h2 {

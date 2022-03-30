@@ -37,6 +37,8 @@
         })
     }
 
+    console.log(dataSet)
+
     // DOM element where the Timeline will be attached
     const container = document.getElementById('visualization');
 
