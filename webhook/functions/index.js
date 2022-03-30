@@ -1,34 +1,28 @@
-import express from 'express';
-import bodyParser from "body-parser";
-import fetch from 'node-fetch';
-import 'dotenv/config';
-
+const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
+const fetch = require('node-fetch');
+const functions = require('firebase-functions');
+const cors = require('cors');
+require('dotenv').config();
 
-const port = "8085";
-const host = "127.0.0.1";
 
-//Secret key
+app.use(cors({ origin: true }));
 
 app.get("/",(req,res)=>{
   res.status(200).send('hey')
 })
 
-// Configure express json
 app.use(bodyParser.json());
 
-console.log(process.env.WEBHOOK_ENDPOINT)
 // Add default route
-app.post("/webhook", function(req, res) {
+app.post("/webhook", async function(req, res) {
 
-  const command = req.headers["x-github-event"];
+  const eventType = req.headers["x-github-event"];
 
-  console.log(req.body)
-
-  
   let text = '';
 
-  switch (command) {
+  switch (eventType) {
     //Event create (Branch, or tag created)
     case "create":
       console.log("Create event");
@@ -47,8 +41,6 @@ app.post("/webhook", function(req, res) {
 
     //Event Push (Repository published in a repository)
     case "repository":
-      // in req.body
-      // [ 'action', 'changes', 'repository', 'sender' ]
       text = `on repo ${req.body.repository.name}, following changes have been made ${JSON.stringify(req.body.changes)}`;
       console.log("Repository Event");
       break;
@@ -57,21 +49,17 @@ app.post("/webhook", function(req, res) {
       console.log("Event not supported : " + req.headers["X-Github-Event"]);
     }
 
-    await fetch(process.env.WEBHOOK_ENDPOINT,{
-      method: 'POST',
-      body: JSON.stringify({text}),
-      headers: {'Content-Type': 'application/json'}
-    })
+  await fetch(process.env.WEBHOOK_ENDPOINT,{
+    method: 'POST',
+    body: JSON.stringify({text}),
+    headers: {'Content-Type': 'application/json'}
+  })
   
 
     res.status(200).send()
 });
 
-// Main : Start the express http server
-const server = app.listen(port, host, function() {
-    console.log(
-      "App listening at http://%s:%s",
-      server.address().address,
-      server.address().port,
-    );
-  });
+
+exports.app = functions.https.onRequest(app);
+
+

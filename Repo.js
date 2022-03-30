@@ -1,5 +1,4 @@
 import { Octokit, App } from "octokit";
-import 'dotenv/config';
 
 export default class Repo {
 
@@ -35,9 +34,11 @@ export default class Repo {
         const {status, data} = await this.octokit.request(`https://api.github.com/repos/${this.owner}/${this.repo}/commits/${sha}`)
         if(status === 200){
             commits[sha] = data;
-            for(const parent of data?.parents){
-                if(!(parent.sha in commits) || Object.keys(commits[sha]).length === 0){
-                    await this.getCommit(parent.sha,commits)
+            if("parents" in data){
+                for(const parent of data.parents){
+                    if(!(parent.sha in commits) || Object.keys(commits[sha]).length === 0){
+                        await this.getCommit(parent.sha,commits)
+                    }
                 }
             }
         }
@@ -61,3 +62,4 @@ export default class Repo {
         this.commits = commits
     }
 }
+

@@ -7,7 +7,7 @@
     jsonRepo.forEach(repo => {
         const a = document.createElement('a')
         a.setAttribute('href',`./repo.html?repo=${repo.repo}&owner=${repo.owner}`)
-        a.innerText = `${repo.repo}`
+        a.innerHTML = `<h2>${repo.repo}</h2><p>${repo.owner}</p>`
 
         elList.appendChild(a)
     });

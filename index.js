@@ -29,16 +29,12 @@ const updateList = async (filePath,repoInfo)=>{
   fs.writeFile(`./repo/list.json`, JSON.stringify(list), 'utf8', ()=>{console.log('list updated')});
 }
 
-
-
 (async ()=>{
 
   const repoInfo = {
-    repo: 'test-webhook',
-    owner: 'emma-laprevote'
+    repo: 'postlab',
+    owner: 'robin-arbona'
   }
-
-
 
   const file = `${repoInfo.repo}_${repoInfo.owner}.json`
 
